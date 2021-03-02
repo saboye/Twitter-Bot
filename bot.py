@@ -1,8 +1,6 @@
 # import all library
 import tweepy
-import configparser
 import time
-import logging
 
 
 # Twitter key configration
@@ -16,22 +14,24 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
+# change the Hash tag here
+hashtag = ("Example")
 
-hashtag = ( "UnityForEthiopia")
-
-tweet_number = 10
+# Number of the retweets
+tweet_number = 100
 tweets = tweepy.Cursor(api.search, hashtag).items(tweet_number)
 
 
-def searchbot():
+def main():
     for tweet in tweets:
         try:
             tweet.retweet()
-            print("Retweet Done!")
+            print("Retweet Completed!")
             time.sleep(10)
         except tweepy.TweepError as e:
             print(e.reason)
             time.sleep(10)
 
 
-searchbot()
+if __name__ == "__main__":
+    main()
